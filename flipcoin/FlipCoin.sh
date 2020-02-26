@@ -25,8 +25,15 @@ do
 		singletDictionary[T]=$tail
 	fi
 done
+
+for i in ${!singletDictionary[@]}
+do
+	echo "$i---->${singletDictionary[$i]}"
+done
+
 headAvg=`echo "scale = 3 ; (${singletDictionary[H]}*100)/$end" | bc -l` 
 tailAvg=`echo "scale = 3 ; (${singletDictionary[T]}*100)/$end" | bc -l` 
 echo "Percentage of head : $headAvg"
 echo "Percentage of tail : $tailAvg"
+
 
