@@ -21,6 +21,22 @@ doubletDictionary[HH]=0
 doubletDictionary[HT]=0
 doubletDictionary[TH]=0
 doubletDictionary[TT]=0
+HeadHH=0
+HeadHT=0
+HeadTH=0
+HeadTT=0
+TailHH=0
+TailHT=0
+TailTH=0
+TailTT=0
+tripletDictionary[HHH]=0
+tripletDictionary[HHT]=0
+tripletDictionary[HTH]=0
+tripletDictionary[HTT]=0
+tripletDictionary[THH]=0
+tripletDictionary[THT]=0
+tripletDictionary[TTH]=0
+tripletDictionary[TTT]=0
 
 read -p "Enter how many times you want to flip the coin : " end
 
@@ -84,4 +100,50 @@ tailHeadAvg=`echo "scale = 3 ; (${doubletDictionary[TH]}*100)/$end" | bc -l`
 echo "Percentage of TH is : $tailHeadAvg"
 doubleTailAvg=`echo "scale = 3 ; (${doubletDictionary[TT]}*100)/$end" | bc -l` 
 echo "Percentage of TT is : $doubleTailAvg"
+
+
+#PERCENTAGE OF TRIPLET COMBINATION
+for (( index=1; index<=$end; index++ ))
+do
+   randomCheck1=$((RANDOM%2))
+   randomCheck2=$((RANDOM%2))
+	randomCheck3=$((RANDOM%2))
+   if (( $randomCheck1 == $H && $randomCheck2 == $H && $randomCheck3 == $H ))
+   then
+      HeadHH=$(($HeadHH+1))
+      tripletDictionary[HHH]=$HeadHH
+   elif (( $randomCheck1 == $H && $randomCheck2 == $H && $randomCheck3 == $T ))
+   then
+      HeadHT=$(($HeadHT+1))
+      tripletDictionary[HHT]=$HeadHT
+   elif (( $randomCheck1 == $H && $randomCheck2 == $T && $randomCheck3 == $H ))
+   then
+      HeadTH=$(($HeadTH+1))
+      tripletDictionary[HTH]=$HeadTH
+   elif (( $randomCheck1 == $H && $randomCheck2 == $T && $randomcheck3 == $T ))
+	then
+      HeadTT=$(($HeadTT+1))
+      tripletDictionary[HTT]=$HeadTT
+	elif (( $randomCheck1 == $T && $randomCheck2 == $H && $randomCheck3 == $H ))
+   then
+      TailHH=$(($TailHH+1))
+      tripletDictionary[THH]=$TailHH
+   elif (( $randomCheck1 == $T && $randomCheck2 == $H && $randomCheck3 == $T ))
+   then
+      TailHT=$(($TailHT+1))
+      tripletDictionary[THT]=$TailHT
+   elif (( $randomCheck1 == $T && $randomCheck2 == $T && $randomCheck3 == $H ))
+   then
+      TailTH=$(($TailTH+1))
+      tripletDictionary[TTH]=$TailTH
+   else
+      TailTT=$(($TailTT+1))
+      tripletDictionary[TTT]=$TailTT
+   fi
+done
+
+for i in ${!tripletDictionary[@]}
+do
+   echo "$i---->${tripletDictionary[$i]}"
+done
 
