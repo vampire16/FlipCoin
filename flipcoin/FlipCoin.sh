@@ -5,6 +5,7 @@ echo "Flip coin simulation"
 #DICTIONARY DECLARATION
 declare -A singletDictionary
 declare -A doubletDictionary
+declare -A tripletDictionary
 
 #VARIABLES
 H=0
@@ -120,7 +121,7 @@ do
    then
       HeadTH=$(($HeadTH+1))
       tripletDictionary[HTH]=$HeadTH
-   elif (( $randomCheck1 == $H && $randomCheck2 == $T && $randomcheck3 == $T ))
+   elif (( $randomCheck1 == $H && $randomCheck2 == $T && $randomCheck3 == $T ))
 	then
       HeadTT=$(($HeadTT+1))
       tripletDictionary[HTT]=$HeadTT
@@ -142,8 +143,25 @@ do
    fi
 done
 
-for i in ${!tripletDictionary[@]}
+for i in "${!tripletDictionary[@]}"
 do
    echo "$i---->${tripletDictionary[$i]}"
 done
+
+HeadHHAvg=`echo "scale = 3 ; (${tripletDictionary[HHH]}*100)/$end" | bc -l` 
+echo "Percentage of HHH is : $HeadHHAvg"
+HeadHTAvg=`echo "scale = 3 ; (${tripletDictionary[HHT]}*100)/$end" | bc -l` 
+echo "Percentage of HHT is : $HeadHTAvg"
+HeadTHAvg=`echo "scale = 3 ; (${tripletDictionary[HTH]}*100)/$end" | bc -l` 
+echo "Percentage of HTH is : $HeadTHAvg"
+HeadTTAvg=`echo "scale = 3 ; (${tripletDictionary[HTT]}*100)/$end" | bc -l` 
+echo "Percentage of HTT is : $HeadTTAvg"
+TailHHAvg=`echo "scale = 3 ; (${tripletDictionary[THH]}*100)/$end" | bc -l` 
+echo "Percentage of THH is : $TailHHAvg"
+TailHTAvg=`echo "scale = 3 ; (${tripletDictionary[THT]}*100)/$end" | bc -l` 
+echo "Percentage of THT is : $TailHTAvg"
+TailTHAvg=`echo "scale = 3 ; (${tripletDictionary[TTH]}*100)/$end" | bc -l` 
+echo "Percentage of TTH is : $TailTHAvg"
+TailTTAvg=`echo "scale = 3 ; (${tripletDictionary[TTT]}*100)/$end" | bc -l` 
+echo "Percentage of TTT is : $TailTTAvg"
 
